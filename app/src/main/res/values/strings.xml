@@ -1,20 +1,27 @@
 <resources>
     <string name="app_name">Expense Tracker</string>
 
-<!--    activity_main-->
-    <string name = "name_input">Enter a username</string>
-    <string name = "password_input">Enter password</string>
-    <string name = "login_btn">Login</string>
+    <!--    activity_main-->
+    <string name="name_input">Enter a username</string>
+    <string name="password_input">Enter password</string>
+    <string name="login_btn">Login</string>
 
-<!--    activity_second-->
+    <!--    activity_second-->
     <string name="save_goal_tab">Save Goal</string>
     <string name="income_expense_tab">Income/Expense</string>
 
-<!--    fragment_save_goal-->
+    <!--    fragment_save_goal-->
     <string name="fragment_save_goal">Save Goal</string>
     <string name="save_goal_frag_txt">Your Current Save Goal:</string>
     <string name="save_goal_frag_btn">Create A New Save Goal</string>
 
-<!--    fragment_income_expense-->
+    <!--    fragment_income_expense-->
     <string name="fragment_income_expense">Income/Expense</string>"
+
+    <string name="create_save_goal_txt">You are creating a new save goal!</string>
+    <string name="goal_name_edit_txt">Enter the name of goal</string>
+    <string name="amount_edit_txt">Enter the total amount</string>
+    <string name="length_of_period_edit_txt">Enter length of period (months)</string>
+    <string name="low_amount_reminder_edit_txt">Reminder for low save left (alternative)</string>
+    <string name="create_btn">Create</string>
 </resources>
