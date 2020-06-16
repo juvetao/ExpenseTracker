@@ -24,4 +24,7 @@
     <string name="length_of_period_edit_txt">Enter length of period (months)</string>
     <string name="low_amount_reminder_edit_txt">Reminder for low save left (alternative)</string>
     <string name="create_btn">Create</string>
+    <string name="title_activity_tab">TabActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 </resources>

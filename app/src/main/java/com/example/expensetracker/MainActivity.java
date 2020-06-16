@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                Intent intent = new Intent(MainActivity.this, TabActivity.class);
 
                 user = name_input.getEditableText().toString();
                 String valid_username = "Cheng";
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                Intent intent = new Intent(MainActivity.this, TabActivity.class);
 
                 user = name_input.getEditableText().toString();
                 String valid_username = "Cheng";

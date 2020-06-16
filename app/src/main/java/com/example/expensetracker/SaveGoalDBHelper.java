@@ -21,17 +21,21 @@ public class SaveGoalDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String create_table_query = "CREATE TABLE" + SAVE_GOAL_TABLE + " ("+ COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_GOAL_NAME + "TEXT" + COL_TOTAL_AMOUNT + "NUMERIC" + COL_PERIOD_LENGTH + "INTEGER)";
+//        String create_table_query = "CREATE TABLE " + SAVE_GOAL_TABLE + " ("+ COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_GOAL_NAME + " TEXT" + COL_TOTAL_AMOUNT + " NUMERIC" + COL_PERIOD_LENGTH + " INTEGER) ";
+
+        String create_table_query = "CREATE TABLE " + SAVE_GOAL_TABLE + " ( "+ COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + COL_GOAL_NAME + " TEXT, " + COL_TOTAL_AMOUNT + " NUMERIC, " + COL_PERIOD_LENGTH + " INTEGER) ";
+
+        db.execSQL(create_table_query);
     }
 
     //Upgrading database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + SAVE_GOAL_TABLE);
-
-        //Create tables again
-        onCreate(db);
+//        // Drop older table if existed
+//        db.execSQL("DROP TABLE IF EXISTS " + SAVE_GOAL_TABLE);
+//
+//        //Create tables again
+//        onCreate(db);
 
     }
 
@@ -44,6 +48,7 @@ public class SaveGoalDBHelper extends SQLiteOpenHelper {
         cv.put(COL_PERIOD_LENGTH, saveGoalToAdd.getPeriod_length());
 
         long insertStatus = db.insert(SAVE_GOAL_TABLE, null, cv);
+
 
         db.close();
         if(insertStatus == -1){
