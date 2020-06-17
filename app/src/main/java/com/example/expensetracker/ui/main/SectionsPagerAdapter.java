@@ -27,6 +27,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         mContext = context;
     }
 
+    //initialize fragment objects for different tabs
     @Override
     public Fragment getItem(int position) {
         Fragment fragment = null;
@@ -41,6 +42,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         return fragment;
     }
 
+
+    //Update the titles of tabs
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
