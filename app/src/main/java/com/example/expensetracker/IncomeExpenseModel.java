@@ -1,15 +1,17 @@
 package com.example.expensetracker;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.Locale;
 
 public class IncomeExpenseModel {
     private int id;
     private IncomeExpense incomeExpense;
     private String category;
     private double amount;
-    private Date date;
+    private LocalDate date;
 
-    public IncomeExpenseModel(int id, IncomeExpense incomeExpense, String category, double amount, Date date) {
+    public IncomeExpenseModel(int id, IncomeExpense incomeExpense, String category, double amount, LocalDate date) {
         this.id = id;
         this.incomeExpense = incomeExpense;
         this.category = category;
@@ -45,11 +47,11 @@ public class IncomeExpenseModel {
         this.amount = amount;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SearchIncomeExpenseActivity"></activity>
+        <activity android:name=".MoreIncomeExpenseActionsActivity"></activity>
+        <activity android:name=".SearchIncomeExpenseActivity" />
         <activity android:name=".AddIncomeExpenseActivity" />
         <activity
             android:name=".TabActivity"

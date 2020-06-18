@@ -17,8 +17,7 @@
 
     <!--    fragment_income_expense-->
     <string name="fragment_income_expense">Income/Expense</string>"
-    <string name="btn_add"></string>
-    <string name="btn_search"></string>
+    <string name="more_action_btn">More Actions</string>
 
     <!--    menu_main-->
     <string name="menu_add">Add Income/Expense</string>

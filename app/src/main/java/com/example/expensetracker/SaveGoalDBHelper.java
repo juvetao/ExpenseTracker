@@ -21,8 +21,6 @@ public class SaveGoalDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-//        String create_table_query = "CREATE TABLE " + SAVE_GOAL_TABLE + " ("+ COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_GOAL_NAME + " TEXT" + COL_TOTAL_AMOUNT + " NUMERIC" + COL_PERIOD_LENGTH + " INTEGER) ";
-
         String create_table_query = "CREATE TABLE " + SAVE_GOAL_TABLE + " ( "+ COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + COL_GOAL_NAME + " TEXT, " + COL_TOTAL_AMOUNT + " NUMERIC, " + COL_PERIOD_LENGTH + " INTEGER) ";
 
         db.execSQL(create_table_query);
@@ -56,7 +54,6 @@ public class SaveGoalDBHelper extends SQLiteOpenHelper {
         }else {
             return true;
         }
-
 
     }
 }

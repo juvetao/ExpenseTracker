@@ -6,29 +6,16 @@
     tools:context=".IncomeExpenseFragment">
 
     <ListView
-        android:id="@+id/list_view"
+        android:id="@+id/list_view_income_expense"
         android:layout_width="match_parent"
-        android:layout_height="464dp" />
+        android:layout_height="487dp" />
 
-    <ImageButton
-        android:id="@+id/btn_add"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/more_action_btn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
         android:layout_marginTop="500dp"
-        android:contentDescription="@string/btn_add"
-        android:src="@android:drawable/ic_menu_add" />
-
-    <ImageButton
-        android:id="@+id/btn_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="250dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="500dp"
-        android:contentDescription="@string/btn_search"
-        android:src="@android:drawable/ic_menu_search" />
+        android:text="@string/more_action_btn" />
 
 
 </FrameLayout>
