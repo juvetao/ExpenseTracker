@@ -1,4 +1,4 @@
-package com.example.expensetracker;
+package com.example.expensetracker.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,9 @@ import android.widget.ListView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.example.expensetracker.MoreIncomeExpenseActionsActivity;
+import com.example.expensetracker.R;
 
 public class IncomeExpenseFragment extends Fragment {
 
@@ -37,7 +40,7 @@ public class IncomeExpenseFragment extends Fragment {
         more_action_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),MoreIncomeExpenseActionsActivity.class);
+                Intent intent = new Intent(getActivity(), MoreIncomeExpenseActionsActivity.class);
                 startActivity(intent);
             }
         });

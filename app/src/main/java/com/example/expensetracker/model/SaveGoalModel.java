@@ -1,4 +1,4 @@
-package com.example.expensetracker;
+package com.example.expensetracker.model;
 
 public class SaveGoalModel {
     private int id;

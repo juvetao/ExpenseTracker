@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.expensetracker.IncomeExpenseFragment;
+import com.example.expensetracker.fragment.IncomeExpenseFragment;
 import com.example.expensetracker.R;
-import com.example.expensetracker.SaveGoalFragment;
+import com.example.expensetracker.fragment.SaveGoalFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to

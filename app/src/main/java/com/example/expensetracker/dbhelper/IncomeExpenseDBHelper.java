@@ -1,18 +1,16 @@
-package com.example.expensetracker;
+package com.example.expensetracker.dbhelper;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import com.example.expensetracker.model.IncomeExpenseModel;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class IncomeExpenseDBHelper extends SQLiteOpenHelper {
