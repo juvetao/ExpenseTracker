@@ -2,10 +2,14 @@ package com.example.expensetracker;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SaveGoalDBHelper extends SQLiteOpenHelper {
     public static final String SAVE_GOAL_TABLE = "SAVE_GOAL_TABLE";
@@ -54,6 +58,43 @@ public class SaveGoalDBHelper extends SQLiteOpenHelper {
         }else {
             return true;
         }
-
     }
+
+    public List<SaveGoalModel> getAllSaveGoal(){
+        List<SaveGoalModel> result = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String get_all_save_goal_query = "SELECT * FROM " + SAVE_GOAL_TABLE;
+
+        Cursor cursor = db.rawQuery(get_all_save_goal_query, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                int save_goal_id = cursor.getInt(0);
+                String save_goal_name = cursor.getString(1);
+                double save_goal_total_amount = cursor.getDouble(2);
+                int save_goal_period = cursor.getInt(3);
+
+                SaveGoalModel tempSaveGoal = new SaveGoalModel(save_goal_id, save_goal_name, save_goal_total_amount, save_goal_period);
+
+                result.add(tempSaveGoal);
+            }while (cursor.moveToNext());
+        }else {
+
+        }
+        cursor.close();
+        return result;
+    }
+
+    public boolean deleteSaveGoal (SaveGoalModel saveGoalToRemove){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(SAVE_GOAL_TABLE, COL_ID +" = " + saveGoalToRemove.getId() , null);
+
+        return true;
+    }
+
+
+
+
 }
