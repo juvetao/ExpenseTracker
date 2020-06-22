@@ -42,7 +42,6 @@ public class SaveGoalFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -86,7 +85,7 @@ public class SaveGoalFragment extends Fragment {
             }
         });
 
-        VolleyNetwork.getInstance(this.getApplicationContext()).addToRequestQueue(myGetReq);
+        VolleyNetwork.getInstance(this.getActivity().getApplicationContext()).addToRequestQueue(myGetReq);
 
         // Inflate the layout for this fragment
         return view;
