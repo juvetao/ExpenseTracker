@@ -61,14 +61,16 @@ public class SaveGoalFragment extends Fragment {
             }
         });
 
-//        reqQueue = Volley.newRequestQueue(SaveGoalFragment.this);
+        reqQueue = Volley.newRequestQueue(this.getActivity());
 
         percentage_of_goal = 50;
 
         progressBar.setMax(100); // 100 maximum value for the progress value
         progressBar.setProgress(percentage_of_goal); // current value for the progress
 
-        JsonObjectRequest myGetReq = new JsonObjectRequest(Request.Method.GET, SERVER_URL + "users?page=2", null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest myGetReq = new JsonObjectRequest(Request.Method.GET,
+                SERVER_URL + "/users/1",
+                null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -85,7 +87,9 @@ public class SaveGoalFragment extends Fragment {
             }
         });
 
-        VolleyNetwork.getInstance(this.getActivity().getApplicationContext()).addToRequestQueue(myGetReq);
+//        VolleyNetwork.getInstance(this.getActivity().getApplicationContext()).addToRequestQueue(myGetReq);
+        reqQueue.add(myGetReq);
+
 
         // Inflate the layout for this fragment
         return view;
