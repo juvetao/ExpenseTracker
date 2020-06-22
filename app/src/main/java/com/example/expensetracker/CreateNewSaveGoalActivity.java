@@ -8,6 +8,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 public class CreateNewSaveGoalActivity extends AppCompatActivity {
 
     private Button create_goal;
@@ -15,6 +25,10 @@ public class CreateNewSaveGoalActivity extends AppCompatActivity {
     private EditText total_amount;
     private EditText length_period;
     private SaveGoalDBHelper myDBHelper;
+
+    private ArrayList<SaveGoalModel> save_goal_data;
+
+    private final static String SERVER_URL = "https://reqres.in/api/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,19 +46,48 @@ public class CreateNewSaveGoalActivity extends AppCompatActivity {
         create_goal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //info form views
-                String name = goal_name.getText().toString();
-                double amount = Double.parseDouble(total_amount.getText().toString());
-                int length = Integer.parseInt(length_period.getText().toString());
+//                //info form views
+//                String name = goal_name.getText().toString();
+//                double amount = Double.parseDouble(total_amount.getText().toString());
+//                int length = Integer.parseInt(length_period.getText().toString());
+//
+//                //save goal object
+//                SaveGoalModel saveGoalToAdd = new SaveGoalModel(-1, name, amount, length);
+//
+//                //add to db
+//                boolean status = myDBHelper.addSaveGoalToDb(saveGoalToAdd);
+//
+//                //control
+//                Toast.makeText(CreateNewSaveGoalActivity.this, "Status:" + status, Toast.LENGTH_SHORT).show();
 
-                //save goal object
-                SaveGoalModel saveGoalToAdd = new SaveGoalModel(-1, name, amount, length);
+                //Post
+                JSONObject postData = new JSONObject();
 
-                //add to db
-                boolean status = myDBHelper.addSaveGoalToDb(saveGoalToAdd);
+                try {
+                    postData.put("goal name",goal_name);
+                    postData.put("total amount", total_amount);
+                    postData.put("period length",length_period);
 
-                //control
-                Toast.makeText(CreateNewSaveGoalActivity.this, "Status:" + status, Toast.LENGTH_SHORT).show();
+                    JsonObjectRequest myPostReq = new JsonObjectRequest(Request.Method.POST, SERVER_URL + "save_goals", postData, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+//                            txt_result.setText(response.toString());
+                            Toast.makeText(CreateNewSaveGoalActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            error.printStackTrace();
+                        }
+                    });
+
+                    VolleyNetwork.getInstance(this.getApplicationContext()).addToRequestQueue(myPostReq);
+
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+
+
             }
 
 

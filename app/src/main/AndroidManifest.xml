@@ -10,8 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MoreIncomeExpenseActionsActivity"></activity>
-        <activity android:name=".SearchIncomeExpenseActivity" />
-        <activity android:name=".AddIncomeExpenseActivity" />
         <activity
             android:name=".TabActivity"
             android:label="@string/title_activity_tab"

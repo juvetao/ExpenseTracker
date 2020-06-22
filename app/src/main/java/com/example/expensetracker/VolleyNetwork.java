@@ -9,6 +9,7 @@ public class VolleyNetwork {
     private RequestQueue requestQueue;
     private Context ctx;
 
+    //singleton
     private static VolleyNetwork instance;
 
     private VolleyNetwork(Context ctx){
