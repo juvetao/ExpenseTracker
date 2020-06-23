@@ -96,4 +96,13 @@ public class SaveGoalDBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    public double getSaveGoalTotalAmount (){
+        SQLiteDatabase db = this.getReadableDatabase();
+//        String get_first_save_goal = "SELECT COL_TOTAL_AMOUNT FROM " + SAVE_GOAL_TABLE + " WHERE " + COL_ID + " = 1";
+        String get_first_save_goal = "SELECT * FROM " + SAVE_GOAL_TABLE + " WHERE " + COL_ID + " = 1";
+        double totalAmount = db.rawQuery(get_first_save_goal, null).getDouble(2);
+
+        return totalAmount;
+    }
+
 }

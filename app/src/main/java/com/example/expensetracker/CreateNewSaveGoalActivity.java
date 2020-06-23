@@ -1,16 +1,25 @@
 package com.example.expensetracker;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.example.expensetracker.dbhelper.SaveGoalDBHelper;
+import com.example.expensetracker.model.IncomeExpenseModel;
 import com.example.expensetracker.model.SaveGoalModel;
 
 import java.util.ArrayList;
@@ -24,6 +33,7 @@ public class CreateNewSaveGoalActivity extends AppCompatActivity {
     private SaveGoalDBHelper myDBHelper;
     private ListView save_goal_list;
     private ArrayAdapter adp;
+    private RequestQueue reqQueue;
 
     private ArrayList<SaveGoalModel> save_goal_data;
 
@@ -43,6 +53,8 @@ public class CreateNewSaveGoalActivity extends AppCompatActivity {
         save_goal_list = findViewById(R.id.save_goal_list);
 
         updateViews();
+
+        registerForContextMenu(save_goal_list);
 
         //Create a new save goal
         create_goal.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +81,30 @@ public class CreateNewSaveGoalActivity extends AppCompatActivity {
 
         });
 
+    }
+
+    //Inflate Context Menu
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+
+    //Control Context Menu
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo ) item.getMenuInfo();
+
+        switch (item.getItemId()){
+            case R.id.menu_item_delete:
+                boolean status = myDBHelper.deleteSaveGoal((SaveGoalModel) adp.getItem(info.position));
+                Toast.makeText(this, "deleted", Toast.LENGTH_SHORT).show();
+                updateViews();
+                break;
+        }
+
+        return super.onContextItemSelected(item);
     }
 
     private void updateViews(){

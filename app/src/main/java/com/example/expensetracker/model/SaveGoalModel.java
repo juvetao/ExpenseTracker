@@ -44,6 +44,6 @@ public class SaveGoalModel {
 
     @Override
     public String toString() {
-        return "id=" + id + ", goal_name='" + goal_name + ", total_amount=" + total_amount + ", period_length=" + period_length;
+        return "id= " + id + ", goal_name= " + goal_name + ", total_amount= " + total_amount + ", period_length= " + period_length;
     }
 }

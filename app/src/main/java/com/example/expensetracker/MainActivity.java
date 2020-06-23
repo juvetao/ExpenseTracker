@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +20,12 @@ public class MainActivity extends AppCompatActivity {
     public final static String EDITVIEW_NAME = "Username";
     public final static String EDITVIEW_PASS = "Password";
 
+    private RequestQueue reqQueue;
+    private final static String SERVER_URL = "https://reqres.in/api/";
+
     String user, pass;
+
+
 
     private EditText name_input, password_input;
     private Button login_btn;
@@ -27,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        reqQueue = Volley.newRequestQueue(this);
 
         name_input = findViewById(R.id.name_input);
         password_input = findViewById(R.id.password_input);
@@ -133,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
         Toast.makeText(this, EDITVIEW_PASS+"is saved", Toast.LENGTH_SHORT).show();
     }
+
 
     public void loadPassword(){
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS_PASS, MODE_PRIVATE);

@@ -22,6 +22,9 @@ import com.android.volley.toolbox.Volley;
 import com.example.expensetracker.CreateNewSaveGoalActivity;
 import com.example.expensetracker.R;
 import com.example.expensetracker.VolleyNetwork;
+import com.example.expensetracker.dbhelper.IncomeExpenseDBHelper;
+import com.example.expensetracker.dbhelper.SaveGoalDBHelper;
+import com.example.expensetracker.model.SaveGoalModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,7 +34,10 @@ public class SaveGoalFragment extends Fragment {
     private ProgressBar progressBar;
     private Button create_new_save_goal_btn;
     private RequestQueue reqQueue;
+//    private SaveGoalDBHelper mySaveGoalDBHelper;
 
+
+    //To have the result after calculation
     private int percentage_of_goal;
 
     private final static String SERVER_URL = "https://reqres.in/api/";
@@ -64,10 +70,17 @@ public class SaveGoalFragment extends Fragment {
 
         reqQueue = Volley.newRequestQueue(getActivity());
 
+//        mySaveGoalDBHelper = new SaveGoalDBHelper(getActivity());
+
         percentage_of_goal = 50;
+        //Get the total amount of the first row
+//        percentage_of_goal = (int) mySaveGoalDBHelper.getAllSaveGoal().get(0).getTotal_amount();
+
 
         progressBar.setMax(100); // 100 maximum value for the progress value
         progressBar.setProgress(percentage_of_goal); // current value for the progress
+
+        save_goal_frag_txt.setText("Your current save goal: " + percentage_of_goal + "% is done");
 
         JsonObjectRequest myGetReq = new JsonObjectRequest(Request.Method.GET,
                 SERVER_URL + "users/1",
@@ -98,7 +111,4 @@ public class SaveGoalFragment extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
-
-
-
 }

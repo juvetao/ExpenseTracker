@@ -27,9 +27,6 @@ public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
     private IncomeExpenseDBHelper myDBHelper;
     private ArrayAdapter adp;
     private ListView income_expense_list;
-//
-//    private ArrayList<IncomeExpenseModel> incomes_expenses_data;
-//    private ArrayList<IncomeExpenseModel> search_results;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +35,9 @@ public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
         myDBHelper = new IncomeExpenseDBHelper(this);
         income_expense_list = (ListView) findViewById(R.id.list_view_income_expense_more_actions);
         System.out.println(myDBHelper.getAllIncomeExpenses());
+//        System.out.println(myDBHelper.getSum("Income"));
+//        System.out.println(myDBHelper.getSum("Expense"));
+
         updateViews();
 
         registerForContextMenu(income_expense_list);
@@ -53,7 +53,6 @@ public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
     //Control Action Bar Menu
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo ) item.getMenuInfo();
 
         switch (item.getItemId()){
             case R.id.add_menu:
@@ -87,7 +86,6 @@ public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
                         double amount = Double.parseDouble(amount_edit_txt.getText().toString());
                         int date = Integer.parseInt(date_edit_txt.getText().toString());
 
-
                         final IncomeExpenseModel tempIncomeExpense = new IncomeExpenseModel(-1, income_expense, category, amount, date);
 
                         myDBHelper.addIncomeExpenseToDb(tempIncomeExpense);
@@ -98,6 +96,8 @@ public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
                         addDialog.hide();
                     }
                 });
+
+                break;
 
             case R.id.search_menu:
                 AlertDialog.Builder dialogBuilder_search = new AlertDialog.Builder(this);
@@ -133,7 +133,6 @@ public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
                        search_result_list.setAdapter(adp);
                     }
                 });
-
 
                 Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
                 break;

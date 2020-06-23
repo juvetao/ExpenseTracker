@@ -109,12 +109,16 @@ public class IncomeExpenseDBHelper extends SQLiteOpenHelper {
     public ArrayList<IncomeExpenseModel> getIncomeExpenseByCategory (String searchCategory){
         ArrayList<IncomeExpenseModel> result = new ArrayList<IncomeExpenseModel>();
         SQLiteDatabase db = this.getReadableDatabase();
+
+        String get_income_expense_by_category = "SELECT * FROM " + INCOME_EXPENSE_TABLE + " WHERE " + COL_CATEGORY + " LIKE '%"+searchCategory+"%'";
         Cursor cursor = null;
         String[] columns= {COL_ID, COL_INCOME_EXPENSE, COL_CATEGORY, COL_AMOUNT, COL_DATE};
 
         try{
-            cursor = db.query(INCOME_EXPENSE_TABLE, columns, null, null, null, null, null);
-                if(cursor.moveToFirst()){
+            cursor = db.rawQuery(get_income_expense_by_category, null);
+
+            if(cursor != null){
+                cursor.moveToFirst();{
                 do{
                     int income_expense_id = cursor.getInt(0);
                     String income_or_expense = cursor.getString(1);
@@ -129,14 +133,24 @@ public class IncomeExpenseDBHelper extends SQLiteOpenHelper {
                     cursor.close();
                     return result;
                 }
-                return result;
+            }else {
+                return null;
+                }
             } catch (Exception e) {
             e.printStackTrace();
         }
+        cursor.close();
         return result;
         }
 
+    //Calculate Sum of expenses
+    public double getSum (String incomeOrExpense){
+        SQLiteDatabase db = this.getReadableDatabase();
 
-        //Calculate Sum of incomes
+        String get_sum = "SELECT SUM ("+ COL_AMOUNT + ") FROM " + INCOME_EXPENSE_TABLE + " WHERE " + COL_INCOME_EXPENSE + "='" + incomeOrExpense + "'";
+        double sum = db.rawQuery(get_sum, null).getDouble(3);
+
+        return sum;
+    }
 
 }
