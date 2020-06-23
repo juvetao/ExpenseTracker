@@ -57,8 +57,8 @@ public class IncomeExpenseDBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public List<IncomeExpenseModel> getAllIncomeExpenses(){
-        List<IncomeExpenseModel> result = new ArrayList<>();
+    public ArrayList<IncomeExpenseModel> getAllIncomeExpenses(){
+        ArrayList<IncomeExpenseModel> result = new ArrayList<IncomeExpenseModel>();
         SQLiteDatabase db = this.getReadableDatabase();
 
         String get_all_income_expense_query = "SELECT * FROM " + INCOME_EXPENSE_TABLE;
@@ -73,12 +73,69 @@ public class IncomeExpenseDBHelper extends SQLiteOpenHelper {
                 String category = cursor.getString(2);
                 double amount = cursor.getDouble(3);
                 int date = cursor.getInt(4);
-            }while (cursor.moveToNext());
-        }else {
 
+                IncomeExpenseModel incomeExpenseModel = new IncomeExpenseModel(income_expense_id, income_or_expense, category, amount, date);
+                result.add(incomeExpenseModel);
+
+            }while (cursor.moveToNext());
         }
 
         cursor.close();
         return result;
     }
+
+    public boolean deleteIncomeExpense (IncomeExpenseModel incomeExpenseRemove){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(INCOME_EXPENSE_TABLE,  COL_ID + " = " + incomeExpenseRemove.getId(), null);
+
+        return true;
+    }
+
+    public void updateIncomeExpense (IncomeExpenseModel incomeExpenseUpdate){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(COL_ID, incomeExpenseUpdate.getId());
+        cv.put(COL_INCOME_EXPENSE, incomeExpenseUpdate.getIncomeExpense());
+        cv.put(COL_CATEGORY, incomeExpenseUpdate.getCategory());
+        cv.put(COL_AMOUNT, incomeExpenseUpdate.getAmount());
+        cv.put(COL_DATE, incomeExpenseUpdate.getDate());
+
+        db.update(INCOME_EXPENSE_TABLE, cv, COL_ID + " = " + incomeExpenseUpdate.getId(), null);
+    }
+
+    //Search for income expense data by category
+    public ArrayList<IncomeExpenseModel> getIncomeExpenseByCategory (String searchCategory){
+        ArrayList<IncomeExpenseModel> result = new ArrayList<IncomeExpenseModel>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        String[] columns= {COL_ID, COL_INCOME_EXPENSE, COL_CATEGORY, COL_AMOUNT, COL_DATE};
+
+        try{
+            cursor = db.query(INCOME_EXPENSE_TABLE, columns, null, null, null, null, null);
+                if(cursor.moveToFirst()){
+                do{
+                    int income_expense_id = cursor.getInt(0);
+                    String income_or_expense = cursor.getString(1);
+                    String category = cursor.getString(2);
+                    double amount = cursor.getDouble(3);
+                    int date = cursor.getInt(4);
+
+                    IncomeExpenseModel incomeExpenseModel = new IncomeExpenseModel(income_expense_id, income_or_expense, category, amount, date);
+                    result.add(incomeExpenseModel);
+
+                    }while (cursor.moveToNext());
+                    cursor.close();
+                    return result;
+                }
+                return result;
+            } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+        }
+
+        //Calculate Sum of incomes
+
 }

@@ -27,9 +27,13 @@
     <string name="amount_txt_view">Amount:</string>
     <string name="amount_edit_txt">Enter the amount</string>
     <string name="date_txt_view">Date:</string>
-    <string name="date_edit_txt">Enter the date</string>
+    <string name="date_edit_txt">Enter the date (yyMMdd)</string>
     <string name="add_btn">Add</string>
 
+<!--    search_income_expense_dialog-->
+    <string name="search_txt_view">Search:</string>
+    <string name="search_edit_txt">Enter Category</string>
+    <string name="search_btn">Search</string>
 
     <!--    menu_main-->
     <string name="menu_add">Add Income/Expense</string>

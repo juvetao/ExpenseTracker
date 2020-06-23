@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -27,17 +28,18 @@ public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
     private IncomeExpenseDBHelper myDBHelper;
     private ArrayAdapter adp;
     private ListView income_expense_list;
-    private IncomeExpenseDBHelper myDbHelper;
-
-    private ArrayList<IncomeExpenseModel> incomes_expenses_data;
-
-    //private final static String SERVER_URL = "https://reqres.in/api/";
-
+//
+//    private ArrayList<IncomeExpenseModel> incomes_expenses_data;
+//    private ArrayList<IncomeExpenseModel> search_results;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more_actions_for_income_expense);
+        myDBHelper = new IncomeExpenseDBHelper(this);
+        income_expense_list = (ListView) findViewById(R.id.list_view_income_expense_more_actions);
+        System.out.println(myDBHelper.getAllIncomeExpenses());
+        updateViews();
     }
 
     //Inflate the menu file to show the main menu
@@ -50,51 +52,42 @@ public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
     //Control the menu
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo ) item.getMenuInfo();
+//        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo ) item.getMenuInfo();
+
         switch (item.getItemId()){
             case R.id.add_menu:
-//                Toast.makeText(this, "Add", Toast.LENGTH_SHORT).show();
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                AlertDialog.Builder dialogBuilder_add = new AlertDialog.Builder(this);
 
-                //Inflate View for alertdialog
-                LayoutInflater inflater = getLayoutInflater();
-                View dialogView = inflater.inflate(R.layout.add_income_expense_dialog, null);
+                //Inflate View for AlertDialog
+                LayoutInflater inflater_add = getLayoutInflater();
+                View dialogView_add = inflater_add.inflate(R.layout.add_income_expense_dialog, null);
 
-                dialogBuilder.setView(dialogView);
+                dialogBuilder_add.setView(dialogView_add);
 
                 //Declare
                 final EditText income_expense_edit_txt, category_edit_txt, amount_edit_txt, date_edit_txt;
-                final RadioGroup radio_group;
                 Button add_btn;
 
                 //Initialize
-                income_expense_edit_txt = dialogView.findViewById(R.id.income_expense_edit_txt);
-                category_edit_txt = dialogView.findViewById(R.id.category_edit_txt);
-                amount_edit_txt = dialogView.findViewById(R.id.amount_edit_txt);
-                date_edit_txt = dialogView.findViewById(R.id.date_edit_txt);
-                add_btn = dialogView.findViewById(R.id.add_btn);
-                incomes_expenses_data = new ArrayList<>();
+                income_expense_edit_txt = dialogView_add.findViewById(R.id.income_expense_edit_txt);
+                category_edit_txt = dialogView_add.findViewById(R.id.category_edit_txt);
+                amount_edit_txt = dialogView_add.findViewById(R.id.amount_edit_txt);
+                date_edit_txt = dialogView_add.findViewById(R.id.date_edit_txt);
+                add_btn = dialogView_add.findViewById(R.id.add_btn);
 
-                updateViews();
-
-                final IncomeExpenseModel tempIncomeExpense = (IncomeExpenseModel) adp.getItem(info.position);
-
-                //Setters
-                income_expense_edit_txt.setText(tempIncomeExpense.getIncomeExpense().toString());
-                category_edit_txt.setText(tempIncomeExpense.getCategory());
-                amount_edit_txt.setText((int) tempIncomeExpense.getAmount());
-                date_edit_txt.setText(tempIncomeExpense.getDate());
-
-                final AlertDialog addDialog = dialogBuilder.create();
+                final AlertDialog addDialog = dialogBuilder_add.create();
                 addDialog.show();
 
                 add_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        tempIncomeExpense.setIncomeExpense(income_expense_edit_txt.getText().toString());
-                        tempIncomeExpense.setCategory(category_edit_txt.getText().toString());
-                        tempIncomeExpense.setAmount(Double.parseDouble(amount_edit_txt.getText().toString()));
-                        tempIncomeExpense.setDate(Integer.parseInt(date_edit_txt.getText().toString()));
+                        String income_expense = income_expense_edit_txt.getText().toString();
+                        String category = category_edit_txt.getText().toString();
+                        double amount = Double.parseDouble(amount_edit_txt.getText().toString());
+                        int date = Integer.parseInt(date_edit_txt.getText().toString());
+
+
+                        final IncomeExpenseModel tempIncomeExpense = new IncomeExpenseModel(-1, income_expense, category, amount, date);
 
                         myDBHelper.addIncomeExpenseToDb(tempIncomeExpense);
 
@@ -106,6 +99,41 @@ public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
                 });
 
             case R.id.search_menu:
+                AlertDialog.Builder dialogBuilder_search = new AlertDialog.Builder(this);
+
+                //Inflate View for AlertDialog
+                LayoutInflater inflater_search = getLayoutInflater();
+                View dialogView_search = inflater_search.inflate(R.layout.search_income_expense_dialog, null);
+
+                dialogBuilder_search.setView(dialogView_search);
+
+                //Declare
+                final AutoCompleteTextView auto_com_income_expense;
+                final ListView search_result_list;
+                final EditText search_edit_txt;
+                final Button search_btn;
+
+                //Initialize
+                search_edit_txt = dialogView_search.findViewById(R.id.search_edit_txt);
+                search_result_list = dialogView_search.findViewById(R.id.save_goal_list_view);
+                search_btn = dialogView_search.findViewById(R.id.search_btn);
+
+                final AlertDialog searchDialog = dialogBuilder_search.create();
+                searchDialog.show();
+
+                search_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                       String categoryForSearch = search_edit_txt.getText().toString();
+
+                       Toast.makeText(MoreIncomeExpenseActionsActivity.this, "Searched", Toast.LENGTH_SHORT).show();
+
+                       adp = new ArrayAdapter<IncomeExpenseModel>(v.getContext(), android.R.layout.simple_list_item_1, myDBHelper.getIncomeExpenseByCategory(categoryForSearch));
+                       search_result_list.setAdapter(adp);
+                    }
+                });
+
+
                 Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.exit_menu:

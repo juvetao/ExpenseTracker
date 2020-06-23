@@ -53,12 +53,6 @@ public class IncomeExpenseModel {
 
     @Override
     public String toString() {
-        return "IncomeExpenseModel{" +
-                "id=" + id +
-                ", incomeExpense=" + incomeExpense +
-                ", category='" + category + '\'' +
-                ", amount=" + amount +
-                ", date=" + date +
-                '}';
+        return "id= " + id + ", incomeExpense= " + incomeExpense + ", category= " + category + ", amount= " + amount + ", date= " + date;
     }
 }
