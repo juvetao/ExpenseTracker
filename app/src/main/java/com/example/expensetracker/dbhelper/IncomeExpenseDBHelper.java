@@ -136,6 +136,7 @@ public class IncomeExpenseDBHelper extends SQLiteOpenHelper {
         return result;
         }
 
+
         //Calculate Sum of incomes
 
 }

@@ -81,8 +81,8 @@ public class SaveGoalDBHelper extends SQLiteOpenHelper {
 
                 result.add(tempSaveGoal);
             }while (cursor.moveToNext());
-        }else {
-
+        }else{
+            return null;
         }
         cursor.close();
         return result;
@@ -95,8 +95,5 @@ public class SaveGoalDBHelper extends SQLiteOpenHelper {
 
         return true;
     }
-
-
-
 
 }

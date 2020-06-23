@@ -5,8 +5,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,13 +17,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.expensetracker.dbhelper.IncomeExpenseDBHelper;
 import com.example.expensetracker.model.IncomeExpenseModel;
-
-import java.util.ArrayList;
 
 public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
 
@@ -40,6 +39,8 @@ public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
         income_expense_list = (ListView) findViewById(R.id.list_view_income_expense_more_actions);
         System.out.println(myDBHelper.getAllIncomeExpenses());
         updateViews();
+
+        registerForContextMenu(income_expense_list);
     }
 
     //Inflate the menu file to show the main menu
@@ -49,7 +50,7 @@ public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
         return super.onCreateOptionsMenu(menu);
     }
 
-    //Control the menu
+    //Control Action Bar Menu
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 //        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo ) item.getMenuInfo();
@@ -115,7 +116,7 @@ public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
 
                 //Initialize
                 search_edit_txt = dialogView_search.findViewById(R.id.search_edit_txt);
-                search_result_list = dialogView_search.findViewById(R.id.save_goal_list_view);
+                search_result_list = dialogView_search.findViewById(R.id.search_list_view);
                 search_btn = dialogView_search.findViewById(R.id.search_btn);
 
                 final AlertDialog searchDialog = dialogBuilder_search.create();
@@ -148,4 +149,27 @@ public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
         income_expense_list.setAdapter(adp);
     }
 
+    //Inflate Context Menu
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+
+    //Control Context Menu
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo ) item.getMenuInfo();
+
+        switch (item.getItemId()){
+            case R.id.menu_item_delete:
+                boolean status = myDBHelper.deleteIncomeExpense((IncomeExpenseModel) adp.getItem(info.position));
+                Toast.makeText(this, "deleted", Toast.LENGTH_SHORT).show();
+                updateViews();
+                break;
+        }
+
+        return super.onContextItemSelected(item);
+    }
 }

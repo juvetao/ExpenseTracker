@@ -30,7 +30,7 @@
     <string name="date_edit_txt">Enter the date (yyMMdd)</string>
     <string name="add_btn">Add</string>
 
-<!--    search_income_expense_dialog-->
+    <!--    search_income_expense_dialog-->
     <string name="search_txt_view">Search:</string>
     <string name="search_edit_txt">Enter Category</string>
     <string name="search_btn">Search</string>
@@ -39,6 +39,9 @@
     <string name="menu_add">Add Income/Expense</string>
     <string name="menu_search">Search for Income/Expense</string>
     <string name="menu_exit">Exit</string>
+
+    <!--    context_menu-->
+    <string name="delete_item">Delete</string>
 
     <!--    activity_create_new_save_goal-->
     <string name="create_save_goal_txt">You are creating a new save goal!</string>

@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.expensetracker.dbhelper.SaveGoalDBHelper;
@@ -20,6 +22,8 @@ public class CreateNewSaveGoalActivity extends AppCompatActivity {
     private EditText total_amount;
     private EditText length_period;
     private SaveGoalDBHelper myDBHelper;
+    private ListView save_goal_list;
+    private ArrayAdapter adp;
 
     private ArrayList<SaveGoalModel> save_goal_data;
 
@@ -36,6 +40,9 @@ public class CreateNewSaveGoalActivity extends AppCompatActivity {
         total_amount = findViewById(R.id.edit_text_total_amount);
         length_period = findViewById(R.id.edit_text_length_period);
         myDBHelper = new SaveGoalDBHelper(this);
+        save_goal_list = findViewById(R.id.save_goal_list);
+
+        updateViews();
 
         //Create a new save goal
         create_goal.setOnClickListener(new View.OnClickListener() {
@@ -55,13 +62,17 @@ public class CreateNewSaveGoalActivity extends AppCompatActivity {
                 //control
                 Toast.makeText(CreateNewSaveGoalActivity.this, "Status:" + status, Toast.LENGTH_SHORT).show();
 
+                updateViews();
+
             }
 
 
         });
 
+    }
 
-
-
+    private void updateViews(){
+        adp = new ArrayAdapter<SaveGoalModel>(this, android.R.layout.simple_list_item_1, myDBHelper.getAllSaveGoal());
+        save_goal_list.setAdapter(adp);
     }
 }
