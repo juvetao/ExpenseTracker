@@ -14,6 +14,7 @@
     <string name="fragment_save_goal">Save Goal</string>
     <string name="save_goal_frag_txt">Your Current Save Goal:</string>
     <string name="save_goal_frag_btn">Create A New Save Goal</string>
+    <string name="btn_api">GO TO API</string>
 
     <!--    fragment_income_expense-->
     <string name="fragment_income_expense">Income/Expense</string>"
@@ -53,4 +54,14 @@
     <string name="title_activity_tab">TabActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+
+    <!--    activity_api-->
+    <string name="btn_get">GET REQUEST</string>
+    <string name="btn_post">POST REQUEST</string>
+    <string name="btn_put">PUT REQUEST</string>
+    <string name="btn_delete">DELETE REQUEST</string>
+    <string name="txt_result">Request Result Here</string>
+
+    <!--    context_menu_user_api-->
+    <string name="context_menu_item_1">View Details</string>
 </resources>

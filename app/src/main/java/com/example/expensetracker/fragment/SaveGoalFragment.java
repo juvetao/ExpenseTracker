@@ -19,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.expensetracker.APIActivity;
 import com.example.expensetracker.CreateNewSaveGoalActivity;
 import com.example.expensetracker.R;
 import com.example.expensetracker.VolleyNetwork;
@@ -32,15 +33,13 @@ import org.json.JSONObject;
 public class SaveGoalFragment extends Fragment {
     private TextView save_goal_frag_txt;
     private ProgressBar progressBar;
-    private Button create_new_save_goal_btn;
+    private Button create_new_save_goal_btn, api_btn;
     private RequestQueue reqQueue;
 //    private SaveGoalDBHelper mySaveGoalDBHelper;
 
 
     //To have the result after calculation
     private int percentage_of_goal;
-
-    private final static String SERVER_URL = "https://reqres.in/api/";
 
     public SaveGoalFragment(){
 
@@ -59,6 +58,15 @@ public class SaveGoalFragment extends Fragment {
 
         save_goal_frag_txt = view.findViewById(R.id.save_goal_frag_txt);
 
+        api_btn = (Button) view.findViewById(R.id.btn_api);
+        api_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), APIActivity.class);
+                startActivity(intent);
+            }
+        });
+
         create_new_save_goal_btn = (Button) view.findViewById(R.id.save_goal_frag_btn);
         create_new_save_goal_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +76,7 @@ public class SaveGoalFragment extends Fragment {
             }
         });
 
-        reqQueue = Volley.newRequestQueue(getActivity());
+//        reqQueue = Volley.newRequestQueue(getActivity());
 
 //        mySaveGoalDBHelper = new SaveGoalDBHelper(getActivity());
 
@@ -81,32 +89,6 @@ public class SaveGoalFragment extends Fragment {
         progressBar.setProgress(percentage_of_goal); // current value for the progress
 
         save_goal_frag_txt.setText("Your current save goal: " + percentage_of_goal + "% is done");
-
-        JsonObjectRequest myGetReq = new JsonObjectRequest(Request.Method.GET,
-                SERVER_URL + "users/1",
-                null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONObject data = response.getJSONObject("data");
-                    System.out.println(data.toString());
-                    Toast.makeText(getActivity(), data.toString(), Toast.LENGTH_SHORT).show();
-                    save_goal_frag_txt.setText("Hi, " + data.getString("first_name") + " " + data.getString("last_name") + "! Your current save goal: " + percentage_of_goal + "% is done");
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-//        VolleyNetwork.getInstance(this.getActivity().getApplicationContext()).addToRequestQueue(myGetReq);
-        reqQueue.add(myGetReq);
-
 
         // Inflate the layout for this fragment
         return view;

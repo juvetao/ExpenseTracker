@@ -27,4 +27,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="250dp"
         android:text="@string/save_goal_frag_btn" />
+
+    <Button
+        android:id="@+id/btn_api"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:text="@string/btn_api" />
 </FrameLayout>
