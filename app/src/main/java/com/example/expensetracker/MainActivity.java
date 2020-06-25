@@ -16,9 +16,9 @@ import com.android.volley.toolbox.Volley;
 public class MainActivity extends AppCompatActivity {
 
     public final static String SHARED_PREFS_NAME = "SHAREDPREFNAME";
-    public final static String SHARED_PREFS_PASS = "SHAREDPREFPASS";
+    //public final static String SHARED_PREFS_PASS = "SHAREDPREFPASS";
     public final static String EDITVIEW_NAME = "Username";
-    public final static String EDITVIEW_PASS = "Password";
+    //public final static String EDITVIEW_PASS = "Password";
 
     private RequestQueue reqQueue;
     private final static String SERVER_URL = "https://reqres.in/api/";
@@ -88,14 +88,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         saveUserName();
-        savePassword();
+//        savePassword();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         loadUserName();
-        loadPassword();
+//        loadPassword();
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,20 +133,20 @@ public class MainActivity extends AppCompatActivity {
         user = sharedPreferences.getString(EDITVIEW_NAME, "");
     }
 
-    public void savePassword(){
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS_PASS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putString(EDITVIEW_PASS, pass);
-
-        editor.apply();
-        Toast.makeText(this, EDITVIEW_PASS+"is saved", Toast.LENGTH_SHORT).show();
-    }
-
-
-    public void loadPassword(){
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS_PASS, MODE_PRIVATE);
-        pass = sharedPreferences.getString(EDITVIEW_PASS, "");
-    }
+//    public void savePassword(){
+//        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS_PASS, MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//
+//        editor.putString(EDITVIEW_PASS, pass);
+//
+//        editor.apply();
+//        Toast.makeText(this, EDITVIEW_PASS+"is saved", Toast.LENGTH_SHORT).show();
+//    }
+//
+//
+//    public void loadPassword(){
+//        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS_PASS, MODE_PRIVATE);
+//        pass = sharedPreferences.getString(EDITVIEW_PASS, "");
+//    }
 
 }

@@ -102,18 +102,18 @@ public class ExpenseTrackerDBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public void updateIncomeExpense (IncomeExpenseModel incomeExpenseUpdate){
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues cv = new ContentValues();
-        cv.put(COL_INCOME_EXPENSE_ID, incomeExpenseUpdate.getId());
-        cv.put(COL_INCOME_EXPENSE, incomeExpenseUpdate.getIncomeExpense());
-        cv.put(COL_CATEGORY, incomeExpenseUpdate.getCategory());
-        cv.put(COL_AMOUNT, incomeExpenseUpdate.getAmount());
-        cv.put(COL_DATE, incomeExpenseUpdate.getDate());
-
-        db.update(INCOME_EXPENSE_TABLE, cv, COL_INCOME_EXPENSE_ID + " = " + incomeExpenseUpdate.getId(), null);
-    }
+//    public void updateIncomeExpense (IncomeExpenseModel incomeExpenseUpdate){
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//        ContentValues cv = new ContentValues();
+//        cv.put(COL_INCOME_EXPENSE_ID, incomeExpenseUpdate.getId());
+//        cv.put(COL_INCOME_EXPENSE, incomeExpenseUpdate.getIncomeExpense());
+//        cv.put(COL_CATEGORY, incomeExpenseUpdate.getCategory());
+//        cv.put(COL_AMOUNT, incomeExpenseUpdate.getAmount());
+//        cv.put(COL_DATE, incomeExpenseUpdate.getDate());
+//
+//        db.update(INCOME_EXPENSE_TABLE, cv, COL_INCOME_EXPENSE_ID + " = " + incomeExpenseUpdate.getId(), null);
+//    }
 
     //Search for income expense data by category
     public ArrayList<IncomeExpenseModel> getIncomeExpenseByCategory (String searchCategory){
@@ -217,14 +217,4 @@ public class ExpenseTrackerDBHelper extends SQLiteOpenHelper {
 
         return true;
     }
-
-    public double getSaveGoalTotalAmount (){
-        SQLiteDatabase db = this.getReadableDatabase();
-//        String get_first_save_goal = "SELECT COL_TOTAL_AMOUNT FROM " + SAVE_GOAL_TABLE + " WHERE " + COL_ID + " = 1";
-        String get_first_save_goal = "SELECT * FROM " + SAVE_GOAL_TABLE + " WHERE " + COL_SAVE_GOAL_ID + " = 1";
-        double totalAmount = db.rawQuery(get_first_save_goal, null).getDouble(2);
-
-        return totalAmount;
-    }
-
 }
