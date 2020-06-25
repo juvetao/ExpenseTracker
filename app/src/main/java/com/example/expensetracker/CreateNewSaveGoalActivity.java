@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.ContextMenu;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,9 +16,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
-import com.example.expensetracker.dbhelper.SaveGoalDBHelper;
-import com.example.expensetracker.model.IncomeExpenseModel;
+import com.example.expensetracker.dbhelper.ExpenseTrackerDBHelper;
 import com.example.expensetracker.model.SaveGoalModel;
 
 import java.util.ArrayList;
@@ -30,7 +27,7 @@ public class CreateNewSaveGoalActivity extends AppCompatActivity {
     private EditText goal_name;
     private EditText total_amount;
     private EditText length_period;
-    private SaveGoalDBHelper myDBHelper;
+    private ExpenseTrackerDBHelper myDBHelper;
     private ListView save_goal_list;
     private ArrayAdapter adp;
     private RequestQueue reqQueue;
@@ -38,6 +35,9 @@ public class CreateNewSaveGoalActivity extends AppCompatActivity {
     private ArrayList<SaveGoalModel> save_goal_data;
 
     private final static String SERVER_URL = "https://reqres.in/api/";
+
+//    private SaveGoalModel save_goal_1 = new SaveGoalModel(1, "Trip", 30000.0, 12);
+//    private SaveGoalModel save_goal_2 = new SaveGoalModel(2, "House", 3000000.0, 60);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +49,11 @@ public class CreateNewSaveGoalActivity extends AppCompatActivity {
         goal_name = findViewById(R.id.edit_text_goal_name);
         total_amount = findViewById(R.id.edit_text_total_amount);
         length_period = findViewById(R.id.edit_text_length_period);
-        myDBHelper = new SaveGoalDBHelper(this);
+        myDBHelper = new ExpenseTrackerDBHelper(this);
         save_goal_list = findViewById(R.id.save_goal_list);
+
+//        myDBHelper.addSaveGoalToDb(save_goal_1);
+//        myDBHelper.addSaveGoalToDb(save_goal_2);
 
         updateViews();
 

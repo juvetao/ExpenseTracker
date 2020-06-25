@@ -19,24 +19,35 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.expensetracker.dbhelper.IncomeExpenseDBHelper;
+import com.example.expensetracker.dbhelper.ExpenseTrackerDBHelper;
 import com.example.expensetracker.model.IncomeExpenseModel;
 
 public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
 
-    private IncomeExpenseDBHelper myDBHelper;
+    private ExpenseTrackerDBHelper myDBHelper;
     private ArrayAdapter adp;
     private ListView income_expense_list;
+
+//    private IncomeExpenseModel income_1 = new IncomeExpenseModel(1, "Income", "Salary", 20000.0, 200625);
+//    private IncomeExpenseModel expense_1 = new IncomeExpenseModel(2, "Expense", "Shopping", 1050.0, 200412);
+//    private IncomeExpenseModel expense_2 = new IncomeExpenseModel(3, "Expense", "El", 383.0, 200401);
+//    private IncomeExpenseModel expense_3 = new IncomeExpenseModel(4, "Expense", "Broadband", 299.0, 200501);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more_actions_for_income_expense);
-        myDBHelper = new IncomeExpenseDBHelper(this);
+        myDBHelper = new ExpenseTrackerDBHelper(this);
         income_expense_list = (ListView) findViewById(R.id.list_view_income_expense_more_actions);
         System.out.println(myDBHelper.getAllIncomeExpenses());
 //        System.out.println(myDBHelper.getSum("Income"));
 //        System.out.println(myDBHelper.getSum("Expense"));
+
+//        myDBHelper.addIncomeExpenseToDb(income_1);
+//        myDBHelper.addIncomeExpenseToDb(expense_1);
+//        myDBHelper.addIncomeExpenseToDb(expense_2);
+//        myDBHelper.addIncomeExpenseToDb(expense_3);
 
         updateViews();
 

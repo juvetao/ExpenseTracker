@@ -14,12 +14,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.expensetracker.MoreIncomeExpenseActionsActivity;
 import com.example.expensetracker.R;
-import com.example.expensetracker.dbhelper.IncomeExpenseDBHelper;
+import com.example.expensetracker.dbhelper.ExpenseTrackerDBHelper;
 import com.example.expensetracker.model.IncomeExpenseModel;
 
 public class IncomeExpenseFragment extends Fragment {
 
-    private IncomeExpenseDBHelper myDBHelper;
+    private ExpenseTrackerDBHelper myDBHelper;
     private ArrayAdapter adp;
     private ListView listView;
     private Button more_action_btn;
@@ -39,7 +39,7 @@ public class IncomeExpenseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_income_expense, container, false);
-        myDBHelper = new IncomeExpenseDBHelper(getActivity());
+        myDBHelper = new ExpenseTrackerDBHelper(getActivity());
         listView = view.findViewById(R.id.list_view_income_expense);
         updateViews();
         more_action_btn = view.findViewById(R.id.more_action_btn);

@@ -8,35 +8,32 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import androidx.fragment.app.Fragment;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.expensetracker.APIActivity;
 import com.example.expensetracker.CreateNewSaveGoalActivity;
 import com.example.expensetracker.R;
-import com.example.expensetracker.VolleyNetwork;
-import com.example.expensetracker.dbhelper.IncomeExpenseDBHelper;
-import com.example.expensetracker.dbhelper.SaveGoalDBHelper;
+import com.example.expensetracker.dbhelper.ExpenseTrackerDBHelper;
+import com.example.expensetracker.model.IncomeExpenseModel;
 import com.example.expensetracker.model.SaveGoalModel;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class SaveGoalFragment extends Fragment {
     private TextView save_goal_frag_txt;
     private ProgressBar progressBar;
     private Button create_new_save_goal_btn, api_btn;
     private RequestQueue reqQueue;
-//    private SaveGoalDBHelper mySaveGoalDBHelper;
+    private ExpenseTrackerDBHelper myDBHelper;
 
+//    private SaveGoalModel save_goal_1 = new SaveGoalModel(1, "Trip", 30000.0, 12);
+//    private SaveGoalModel save_goal_2 = new SaveGoalModel(2, "House", 3000000.0, 60);
+//
+//    private IncomeExpenseModel income_1 = new IncomeExpenseModel(1, "Income", "Salary", 20000.0, 200625);
+//    private IncomeExpenseModel expense_1 = new IncomeExpenseModel(2, "Expense", "Shopping", 1050.0, 200412);
+//    private IncomeExpenseModel expense_2 = new IncomeExpenseModel(3, "Expense", "El", 383.0, 200401);
+//    private IncomeExpenseModel expense_3 = new IncomeExpenseModel(4, "Expense", "Broadband", 299.0, 200501);
 
     //To have the result after calculation
     private int percentage_of_goal;
@@ -76,13 +73,27 @@ public class SaveGoalFragment extends Fragment {
             }
         });
 
-//        reqQueue = Volley.newRequestQueue(getActivity());
+        myDBHelper = new ExpenseTrackerDBHelper(getActivity());
 
-//        mySaveGoalDBHelper = new SaveGoalDBHelper(getActivity());
+//        myDBHelper.addSaveGoalToDb(save_goal_1);
+//        myDBHelper.addSaveGoalToDb(save_goal_2);
+//        myDBHelper.addIncomeExpenseToDb(income_1);
+//        myDBHelper.addIncomeExpenseToDb(expense_1);
+//        myDBHelper.addIncomeExpenseToDb(expense_2);
+//        myDBHelper.addIncomeExpenseToDb(expense_3);
 
-        percentage_of_goal = 50;
-        //Get the total amount of the first row
-//        percentage_of_goal = (int) mySaveGoalDBHelper.getAllSaveGoal().get(0).getTotal_amount();
+
+        System.out.println(myDBHelper.getAllSaveGoal().get(0).getTotal_amount());
+        System.out.println(myDBHelper.getSum("Income"));
+        System.out.println(myDBHelper.getSum("Expense"));
+
+        //percentage = (total incomes - total expenses)/ amount of the first save goal
+        if((myDBHelper.getSum("Income") - myDBHelper.getSum("Expense") < myDBHelper.getAllSaveGoal().get(0).getTotal_amount())){
+            percentage_of_goal = (int) ((myDBHelper.getSum("Income") - myDBHelper.getSum("Expense"))
+                /(myDBHelper.getAllSaveGoal().get(0).getTotal_amount())*100);}
+                else {
+                    percentage_of_goal = 100;
+        }
 
 
         progressBar.setMax(100); // 100 maximum value for the progress value
