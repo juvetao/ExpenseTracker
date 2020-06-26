@@ -29,12 +29,6 @@ public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
     private ArrayAdapter adp;
     private ListView income_expense_list;
 
-//    private IncomeExpenseModel income_1 = new IncomeExpenseModel(1, "Income", "Salary", 20000.0, 200625);
-//    private IncomeExpenseModel expense_1 = new IncomeExpenseModel(2, "Expense", "Shopping", 1050.0, 200412);
-//    private IncomeExpenseModel expense_2 = new IncomeExpenseModel(3, "Expense", "El", 383.0, 200401);
-//    private IncomeExpenseModel expense_3 = new IncomeExpenseModel(4, "Expense", "Broadband", 299.0, 200501);
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,13 +36,6 @@ public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
         myDBHelper = new ExpenseTrackerDBHelper(this);
         income_expense_list = (ListView) findViewById(R.id.list_view_income_expense_more_actions);
         System.out.println(myDBHelper.getAllIncomeExpenses());
-//        System.out.println(myDBHelper.getSum("Income"));
-//        System.out.println(myDBHelper.getSum("Expense"));
-
-//        myDBHelper.addIncomeExpenseToDb(income_1);
-//        myDBHelper.addIncomeExpenseToDb(expense_1);
-//        myDBHelper.addIncomeExpenseToDb(expense_2);
-//        myDBHelper.addIncomeExpenseToDb(expense_3);
 
         updateViews();
 
@@ -60,6 +47,12 @@ public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
     }
 
     //Control Action Bar Menu
@@ -87,6 +80,8 @@ public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
                 date_edit_txt = dialogView_add.findViewById(R.id.date_edit_txt);
                 add_btn = dialogView_add.findViewById(R.id.add_btn);
 
+                updateViews();
+
                 final AlertDialog addDialog = dialogBuilder_add.create();
                 addDialog.show();
 
@@ -98,7 +93,7 @@ public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
                         double amount = Double.parseDouble(amount_edit_txt.getText().toString());
                         int date = Integer.parseInt(date_edit_txt.getText().toString());
 
-                        final IncomeExpenseModel tempIncomeExpense = new IncomeExpenseModel(-1, income_expense, category, amount, date);
+                        IncomeExpenseModel tempIncomeExpense = new IncomeExpenseModel(-1, income_expense, category, amount, date);
 
                         myDBHelper.addIncomeExpenseToDb(tempIncomeExpense);
 
@@ -106,9 +101,11 @@ public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
                         updateViews();
 
                         addDialog.hide();
+                        addDialog.dismiss();
                     }
                 });
 
+                updateViews();
                 break;
 
             case R.id.search_menu:

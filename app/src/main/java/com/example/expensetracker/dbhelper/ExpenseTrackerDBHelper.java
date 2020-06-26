@@ -61,8 +61,10 @@ public class ExpenseTrackerDBHelper extends SQLiteOpenHelper {
 
         db.close();
         if(insertStatus == -1){
+            db.close();
             return false;
         }else {
+            db.close();
             return true;
         }
     }
@@ -216,5 +218,14 @@ public class ExpenseTrackerDBHelper extends SQLiteOpenHelper {
         db.delete(SAVE_GOAL_TABLE, COL_SAVE_GOAL_ID +" = " + saveGoalToRemove.getId() , null);
 
         return true;
+    }
+
+
+
+    public void resetDatabase(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS " + SAVE_GOAL_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + INCOME_EXPENSE_TABLE);
+        onCreate(db);
     }
 }

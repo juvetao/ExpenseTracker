@@ -12,20 +12,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.example.expensetracker.dbhelper.ExpenseTrackerDBHelper;
+import com.example.expensetracker.model.IncomeExpenseModel;
+import com.example.expensetracker.model.SaveGoalModel;
 
 public class MainActivity extends AppCompatActivity {
 
-    public final static String SHARED_PREFS_NAME = "SHAREDPREFNAME";
-    //public final static String SHARED_PREFS_PASS = "SHAREDPREFPASS";
+    public final static String SHARED_PREFS = "SHAREDPREF";
     public final static String EDITVIEW_NAME = "Username";
-    //public final static String EDITVIEW_PASS = "Password";
-
-    private RequestQueue reqQueue;
-    private final static String SERVER_URL = "https://reqres.in/api/";
+    public final static String EDITVIEW_PASS = "Password";
 
     String user, pass;
-
-
 
     private EditText name_input, password_input;
     private Button login_btn;
@@ -35,11 +32,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        reqQueue = Volley.newRequestQueue(this);
-
         name_input = findViewById(R.id.name_input);
         password_input = findViewById(R.id.password_input);
         login_btn = findViewById(R.id.login_btn);
+
 
         login_btn.setEnabled(false);
         name_input.addTextChangedListener(new TextWatcher() {
@@ -87,14 +83,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        saveUserName();
+        saveUserInfo();
 //        savePassword();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        loadUserName();
+        loadUserInfo();
 //        loadPassword();
 
         login_btn.setOnClickListener(new View.OnClickListener() {
@@ -118,19 +114,20 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void saveUserName(){
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
+    public void saveUserInfo(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.putString(EDITVIEW_NAME, user);
+        editor.putString(EDITVIEW_PASS, pass);
 
         editor.apply();
-        Toast.makeText(this, EDITVIEW_NAME+"is saved", Toast.LENGTH_SHORT).show();
     }
 
-    public void loadUserName(){
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
+    public void loadUserInfo(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         user = sharedPreferences.getString(EDITVIEW_NAME, "");
+        pass = sharedPreferences.getString(EDITVIEW_PASS, "");
     }
 
 //    public void savePassword(){

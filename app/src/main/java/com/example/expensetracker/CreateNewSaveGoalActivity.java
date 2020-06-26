@@ -30,14 +30,8 @@ public class CreateNewSaveGoalActivity extends AppCompatActivity {
     private ExpenseTrackerDBHelper myDBHelper;
     private ListView save_goal_list;
     private ArrayAdapter adp;
-    private RequestQueue reqQueue;
 
     private ArrayList<SaveGoalModel> save_goal_data;
-
-    private final static String SERVER_URL = "https://reqres.in/api/";
-
-//    private SaveGoalModel save_goal_1 = new SaveGoalModel(1, "Trip", 30000.0, 12);
-//    private SaveGoalModel save_goal_2 = new SaveGoalModel(2, "House", 3000000.0, 60);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +45,6 @@ public class CreateNewSaveGoalActivity extends AppCompatActivity {
         length_period = findViewById(R.id.edit_text_length_period);
         myDBHelper = new ExpenseTrackerDBHelper(this);
         save_goal_list = findViewById(R.id.save_goal_list);
-
-//        myDBHelper.addSaveGoalToDb(save_goal_1);
-//        myDBHelper.addSaveGoalToDb(save_goal_2);
 
         updateViews();
 
