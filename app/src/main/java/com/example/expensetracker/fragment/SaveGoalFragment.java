@@ -17,7 +17,6 @@ import com.example.expensetracker.APIActivity;
 import com.example.expensetracker.CreateNewSaveGoalActivity;
 import com.example.expensetracker.R;
 import com.example.expensetracker.dbhelper.ExpenseTrackerDBHelper;
-import com.example.expensetracker.model.IncomeExpenseModel;
 import com.example.expensetracker.model.SaveGoalModel;
 
 public class SaveGoalFragment extends Fragment {
@@ -26,9 +25,15 @@ public class SaveGoalFragment extends Fragment {
     private Button create_new_save_goal_btn, api_btn;
     private RequestQueue reqQueue;
     private ExpenseTrackerDBHelper myDBHelper;
-//
+
+    private IncomeExpenseFragment incomeExpenseFragment = new IncomeExpenseFragment();
+
     private SaveGoalModel save_goal_1 = new SaveGoalModel(1, "Trip", 30000.0, 12);
     private SaveGoalModel save_goal_2 = new SaveGoalModel(2, "House", 3000000.0, 60);
+
+    private double totalIncome = incomeExpenseFragment.getTotalIncome();
+    private double totalExpense = incomeExpenseFragment.getTotalExpense();
+
 //
 //    private IncomeExpenseModel income_1 = new IncomeExpenseModel(1, "Income", "Salary", 20000.0, 200625);
 //    private IncomeExpenseModel expense_1 = new IncomeExpenseModel(2, "Expense", "Shopping", 1050.0, 200412);
@@ -46,6 +51,13 @@ public class SaveGoalFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+//    public void receivedData (double incomeSum, double expenseSum){
+//        totalIncome = incomeSum;
+//        System.out.println(totalIncome);
+//        totalExpense = expenseSum;
+//        System.out.println(totalExpense);
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,6 +85,11 @@ public class SaveGoalFragment extends Fragment {
             }
         });
 
+////        int id = this.getId();
+////        System.out.println("ID of fragment is: " + id);
+//        String tag = getTag();
+//        System.out.println(tag);
+
         myDBHelper = new ExpenseTrackerDBHelper(getActivity());
 
         //Avoid data duplicated after going back to main activity
@@ -85,14 +102,17 @@ public class SaveGoalFragment extends Fragment {
 //        myDBHelper.addIncomeExpenseToDb(expense_2);
 //        myDBHelper.addIncomeExpenseToDb(expense_3);
 
-//        System.out.println(myDBHelper.getAllSaveGoal().get(0).getTotal_amount());
-//        System.out.println(myDBHelper.getSum("Income"));
-//        System.out.println(myDBHelper.getSum("Expense"));
+        System.out.println(myDBHelper.getAllSaveGoal().get(0).getTotal_amount());
+        System.out.println(totalIncome);
+        System.out.println(totalExpense);
 
         //percentage = (total incomes - total expenses)/ amount of the first save goal
-        if((myDBHelper.getSum("Income") - myDBHelper.getSum("Expense") < myDBHelper.getAllSaveGoal().get(0).getTotal_amount())){
-            percentage_of_goal = (int) ((myDBHelper.getSum("Income") - myDBHelper.getSum("Expense"))
-                /(myDBHelper.getAllSaveGoal().get(0).getTotal_amount())*100);}
+//        if((myDBHelper.getSum("Income") - myDBHelper.getSum("Expense") < myDBHelper.getAllSaveGoal().get(0).getTotal_amount())){
+//            percentage_of_goal = (int) ((myDBHelper.getSum("Income") - myDBHelper.getSum("Expense"))
+//                /(myDBHelper.getAllSaveGoal().get(0).getTotal_amount())*100);}
+        if((totalIncome - totalExpense) < myDBHelper.getAllSaveGoal().get(0).getTotal_amount()){
+            percentage_of_goal = (int) (((totalIncome - totalExpense))
+                                        /(myDBHelper.getAllSaveGoal().get(0).getTotal_amount())*100);}
                 else {
                     percentage_of_goal = 100;
                     save_goal_frag_txt.setText("Congratulations! You have achieved your save goal!");
@@ -106,4 +126,6 @@ public class SaveGoalFragment extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
+
+
 }

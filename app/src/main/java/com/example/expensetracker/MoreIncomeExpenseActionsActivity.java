@@ -35,7 +35,6 @@ public class MoreIncomeExpenseActionsActivity extends AppCompatActivity{
         setContentView(R.layout.activity_more_actions_for_income_expense);
         myDBHelper = new ExpenseTrackerDBHelper(this);
         income_expense_list = (ListView) findViewById(R.id.list_view_income_expense_more_actions);
-        System.out.println(myDBHelper.getAllIncomeExpenses());
 
         updateViews();
 

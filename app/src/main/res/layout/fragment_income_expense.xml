@@ -10,12 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="487dp" />
 
-    <Button
-        android:id="@+id/more_action_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="500dp"
-        android:text="@string/more_action_btn" />
+<!--    <Button-->
+<!--        android:id="@+id/more_action_btn"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="500dp"-->
+<!--        android:text="@string/more_action_btn" />-->
 
 
 </FrameLayout>

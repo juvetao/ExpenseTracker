@@ -1,31 +1,26 @@
 package com.example.expensetracker;
 
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.example.expensetracker.dbhelper.ExpenseTrackerDBHelper;
+import com.example.expensetracker.fragment.IncomeExpenseFragment;
+import com.example.expensetracker.fragment.SaveGoalFragment;
 import com.example.expensetracker.model.IncomeExpenseModel;
 import com.example.expensetracker.model.SaveGoalModel;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
+import android.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 
 import com.example.expensetracker.ui.main.SectionsPagerAdapter;
 
-public class TabActivity extends AppCompatActivity {
-
-//    private ExpenseTrackerDBHelper myDBHelper;
-//
-//    private SaveGoalModel save_goal_1 = new SaveGoalModel(1, "Trip", 30000.0, 12);
-//    private SaveGoalModel save_goal_2 = new SaveGoalModel(2, "House", 3000000.0, 60);
-//
-//    private IncomeExpenseModel income_1 = new IncomeExpenseModel(1, "Income", "Salary", 20000.0, 200625);
-//    private IncomeExpenseModel expense_1 = new IncomeExpenseModel(2, "Expense", "Shopping", 1050.0, 200412);
-//    private IncomeExpenseModel expense_2 = new IncomeExpenseModel(3, "Expense", "El", 383.0, 200401);
-//    private IncomeExpenseModel expense_3 = new IncomeExpenseModel(4, "Expense", "Broadband", 299.0, 200501);
+public class TabActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +32,21 @@ public class TabActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
-//        myDBHelper = new ExpenseTrackerDBHelper(this);
-//
-//        myDBHelper.resetDatabase();
-//
-//        myDBHelper.addSaveGoalToDb(save_goal_1);
-//        myDBHelper.addSaveGoalToDb(save_goal_2);
-//        myDBHelper.addIncomeExpenseToDb(income_1);
-//        myDBHelper.addIncomeExpenseToDb(expense_1);
-//        myDBHelper.addIncomeExpenseToDb(expense_2);
-//        myDBHelper.addIncomeExpenseToDb(expense_3);
     }
 
+//    @Override
+//    public void sendSumData(double totalIncome, double totalExpense) {
+//        String tag = "android:switcher:" + 2131231003 + ":" + 0;
+//        SaveGoalFragment f = (SaveGoalFragment) getSupportFragmentManager().findFragmentByTag(tag);
+//        f.receivedData(totalIncome, totalExpense);
+//    }
+
+    private void loadFragment(Fragment fragment) {
+// create a FragmentManager
+        FragmentManager fm = getFragmentManager();
+// create a FragmentTransaction to begin the transaction and replace the Fragment
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.save_goal_frag, fragment);
+            fragmentTransaction.commit(); // save the changes
+    }
 }
