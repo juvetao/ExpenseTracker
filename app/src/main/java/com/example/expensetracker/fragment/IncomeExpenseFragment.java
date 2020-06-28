@@ -1,6 +1,5 @@
 package com.example.expensetracker.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -24,7 +23,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.expensetracker.MainActivity;
-import com.example.expensetracker.MoreIncomeExpenseActionsActivity;
 import com.example.expensetracker.R;
 import com.example.expensetracker.dbhelper.ExpenseTrackerDBHelper;
 import com.example.expensetracker.model.IncomeExpenseModel;
@@ -34,16 +32,11 @@ public class IncomeExpenseFragment extends Fragment {
     private ExpenseTrackerDBHelper myDBHelper;
     private ArrayAdapter adp;
     private ListView listView;
-//    private SendData sendData;
-    //private Button more_action_btn;
 
     private double totalIncome;
     private double totalExpense;
 
-    private IncomeExpenseModel income_1 = new IncomeExpenseModel(1, "Income", "Salary", 20000.0, 200625);
-    private IncomeExpenseModel expense_1 = new IncomeExpenseModel(2, "Expense", "Shopping", 1050.0, 200412);
-    private IncomeExpenseModel expense_2 = new IncomeExpenseModel(3, "Expense", "El", 383.0, 200401);
-    private IncomeExpenseModel expense_3 = new IncomeExpenseModel(4, "Expense", "Broadband", 299.0, 200501);
+
 
     public IncomeExpenseFragment() {
     }
@@ -70,20 +63,6 @@ public class IncomeExpenseFragment extends Fragment {
         myDBHelper = new ExpenseTrackerDBHelper(getActivity());
         listView = view.findViewById(R.id.list_view_income_expense);
 
-//        more_action_btn = view.findViewById(R.id.more_action_btn);
-//        updateViews();
-//        more_action_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), MoreIncomeExpenseActionsActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-        myDBHelper.addIncomeExpenseToDb(income_1);
-        myDBHelper.addIncomeExpenseToDb(expense_1);
-        myDBHelper.addIncomeExpenseToDb(expense_2);
-        myDBHelper.addIncomeExpenseToDb(expense_3);
-
         updateViews();
         totalIncome = updateTotalValues("Income");
         totalExpense = updateTotalValues("Expense");
@@ -104,25 +83,6 @@ public class IncomeExpenseFragment extends Fragment {
         System.out.println("Total " + incomeOrExpense + ": " + total);
         return total;
     }
-
-//    public interface SendData {
-//        void sendSumData(double totalIncome, double totalExpense);
-//    }
-
-//    private void transferSumDataToSaveGoalFragment(){
-//        sendData.sendSumData(myDBHelper.getSum("Income"), myDBHelper.getSum("Expense"));
-//    }
-
-//    //Attach data
-//    @Override
-//    public void onAttach(@NonNull Context context) {
-//        super.onAttach(context);
-//        try {
-//            sendData = (SendData) getActivity();
-//        } catch (ClassCastException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -276,7 +236,7 @@ public class IncomeExpenseFragment extends Fragment {
     }
 
     Fragment fragment = new Fragment();
-    
+
 }
 
 

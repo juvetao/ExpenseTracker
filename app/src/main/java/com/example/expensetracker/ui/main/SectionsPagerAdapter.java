@@ -2,11 +2,13 @@ package com.example.expensetracker.ui.main;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.expensetracker.fragment.IncomeExpenseFragment;
 import com.example.expensetracker.R;
@@ -42,6 +44,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         return fragment;
     }
 
+    //Force to update the tab
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return POSITION_NONE;
+    }
 
     //Update the titles of tabs
     @Nullable

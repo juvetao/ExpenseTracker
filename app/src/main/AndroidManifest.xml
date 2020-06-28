@@ -15,7 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".APIActivity"></activity>
-        <activity android:name=".MoreIncomeExpenseActionsActivity" />
         <activity
             android:name=".TabActivity"
             android:label="@string/title_activity_tab"

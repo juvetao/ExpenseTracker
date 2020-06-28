@@ -26,27 +26,37 @@ public class TabActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        final SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
+
+        //Update the change in tabs and show the update when switch the tabs
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position){
+                    case 0:
+                        System.out.println("save goal!");
+                        sectionsPagerAdapter.notifyDataSetChanged();
+                    case 1:
+                        System.out.println("income expense");
+                        sectionsPagerAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
-//    @Override
-//    public void sendSumData(double totalIncome, double totalExpense) {
-//        String tag = "android:switcher:" + 2131231003 + ":" + 0;
-//        SaveGoalFragment f = (SaveGoalFragment) getSupportFragmentManager().findFragmentByTag(tag);
-//        f.receivedData(totalIncome, totalExpense);
-//    }
-
-    private void loadFragment(Fragment fragment) {
-// create a FragmentManager
-        FragmentManager fm = getFragmentManager();
-// create a FragmentTransaction to begin the transaction and replace the Fragment
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-            fragmentTransaction.replace(R.id.save_goal_frag, fragment);
-            fragmentTransaction.commit(); // save the changes
-    }
 }
